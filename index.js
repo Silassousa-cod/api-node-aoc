@@ -1,7 +1,5 @@
 
 const express = require('express');
-const config = require('./env');
-const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
