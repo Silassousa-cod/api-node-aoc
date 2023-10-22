@@ -5,11 +5,7 @@ const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
-// Middleware para processar JSON
 app.use(express.json());
-
-// Configuração do banco de dados
-const pool = new Pool(config.database);
 
 // Rota para obter informações do currículo
 app.get('/curriculum', async (req, res) => {
