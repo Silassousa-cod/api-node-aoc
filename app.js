@@ -1,4 +1,5 @@
 const express = require('express');
+const config = require('./config');
 const { Pool } = require('pg');
 const app = express();
 const port = 3000;
