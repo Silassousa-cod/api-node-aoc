@@ -7,7 +7,7 @@ const { Pool } = require('pg');
 const configDb = require('./configDb');
 
 const pool = new Pool({
-    connectionString: configDb.connectionString,
+    connectionString: configDb.connect,
 });
 
 app.use(bodyParser.json())
@@ -32,5 +32,5 @@ app.get('/curriculum', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+  console.log(`App carregando a porta: ${port}.`)
 });
