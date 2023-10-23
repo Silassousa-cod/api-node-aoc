@@ -1,7 +1,16 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const pool = require('./config'); 
+const { Pool } = require('pg-pool');
+
+const pool = new Pool({
+  user: 'kqsxvymi', 
+  host: 'isabelle.db.elephantsql.com',
+  database: 'kqsxvymi', 
+  password: 'GYyrzinplD1d3hKaOZosIH95F0eus3el', 
+  port: 5432, 
+  ssl: true, 
+});
 
 app.use(express.json());
 
