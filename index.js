@@ -1,34 +1,32 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
-const { Pool } = require('pg-pool');
+
+const { Pool } = require('pg');
+const dbConfig = require('./dbConfig');
 
 const pool = new Pool({
-  user: 'kqsxvymi', 
-  host: 'isabelle.db.elephantsql.com',
-  database: 'kqsxvymi', 
-  password: 'GYyrzinplD1d3hKaOZosIH95F0eus3el', 
-  port: 5432, 
-  ssl: true, 
+    connectionString: dbConfig.connectionString,
 });
 
-app.use(express.json());
+app.use(bodyParser.json())
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
-// Rota para obter informações do currículo
+app.get('/',(req,res) => {
+    res.json({ info: 'Curriculo'})
+});
+
 app.get('/curriculum', async (req, res) => {
-  try {
-    const { rows } = await pool.query('SELECT * FROM curriculum');
-    if (rows.length > 0) {
-      res.json(rows[0]);
-    } else {
-      res.json({ message: 'Currículo não encontrado' });
+    try {
+      const result = await pool.query('SELECT * FROM curriculum');
+      res.json(result.rows);
+    } catch (error) {
+      console.error('Não foi possível consultar o banco', error);
+      res.status(500).send('Erro no servidor');
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao buscar currículo' });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Servidor do currículo rodando na porta ${port}`);
 });
