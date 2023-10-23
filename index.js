@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 const { Pool } = require('pg');
-const dbConfig = require('./dbConfig');
+const configDb = require('./configDb');
 
 const pool = new Pool({
-    connectionString: dbConfig.connectionString,
+    connectionString: configDb.connectionString,
 });
 
 app.use(bodyParser.json())
